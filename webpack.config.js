@@ -7,6 +7,7 @@ module.exports = {
     path: path.join(__dirname, "/build"), // Thư mục chứa file được build ra
     filename: "bundle.js", // Tên file được build ra
   },
+
   module: {
     rules: [
       {
