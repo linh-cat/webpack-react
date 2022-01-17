@@ -1,11 +1,20 @@
-var path = require("path");
-var express = require("express");
+const express = require("express");
+const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
 
-var app = express();
+const app = express();
+const config = require("./webpack.prod.js");
+const compiler = webpack(config);
 
-app.use(express.static(path.join(__dirname, "build")));
-app.set("port", process.env.PORT || 8080);
+// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+// configuration file as a base.
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+  })
+);
 
-var server = app.listen(app.get("port"), function () {
-  console.log("listening on port ", server.address().port);
+// Serve the files on port 3000.
+app.listen(3000, function () {
+  console.log("Example app listening on port 3000!\n");
 });

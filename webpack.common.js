@@ -4,9 +4,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: "./src/index.js", // Dẫn tới file index.js ta đã tạo
   output: {
-    path: path.join(__dirname, "/build"), // Thư mục chứa file được build ra
-    filename: "bundle.js", // Tên file được build ra
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "build"),
+    clean: true,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Production",
+      template: "./public/index.html",
+    }),
+  ],
 
   module: {
     rules: [
@@ -21,10 +28,4 @@ module.exports = {
       },
     ],
   },
-  // Chứa các plugins sẽ cài đặt trong tương lai
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
 };
